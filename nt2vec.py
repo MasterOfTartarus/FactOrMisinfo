@@ -36,6 +36,7 @@ class NT2VEC:
         self.d_graph = defaultdict(dict)
         self.d_attr = defaultdict(dict)
         self.sg = sg
+        self.labels = labels
 
         self.workers = workers
 

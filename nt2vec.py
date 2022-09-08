@@ -207,7 +207,7 @@ class NT2VEC:
             return model.wv
         else:  # create dictionary with source labels before outputting
             output = dict()
-            for node in model.wv.vocab:
+            for node in model.wv.key_to_index:
                 output[self.labels[int(node)].strip()] = model.wv[node]
             return output
 

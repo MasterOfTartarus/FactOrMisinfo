@@ -3,6 +3,7 @@
 The goal of this project is to ultimately create a website in which you can enter a URL of an article and be told whether the article is misinformation as well as a possible liberal or conservative bias. 
 
 To accomplish this, we need to use a neural network that can use the text of the articles in tandem with the article tile and outlet that published it to determine whether an article should be considered true or false. However, a neural network doesn't just "read" text, but rather will need a vector to actually understand the article. By using vectorization with Gensim, we can turn each article into a vector, which can be passed into the neural network. 
+[Explain what a neural network is at a high level and what it actually means to turn something into a vector]
 
 
 Below, you can view status updates on the project.

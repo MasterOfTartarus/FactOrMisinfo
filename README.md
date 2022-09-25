@@ -19,6 +19,9 @@ To-do list as of now:
 - Assemble another neural network that accounts for liberal/conservative bias
 
 
+[Background section]
+
+
 Credit to Maurício Gruppi, Benjamin D. Horne, and Sibel Adali for the original code and the NELA-GT-2021 dataset.
 
 [NOTE TO SELF: CITE THE ABOVE PROPERLY]

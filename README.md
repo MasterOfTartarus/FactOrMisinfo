@@ -18,8 +18,8 @@ To-do list as of now:
 - Create neural network
 - Switch from Gensim vectorization to BERT vectorization
 - Put together the website
-- Figure out how to scrape the necessary data from the URL
 - Assemble another neural network that accounts for liberal/conservative bias
+- Figure out how to scrape the necessary data from the URL
 
 
 [Background section]

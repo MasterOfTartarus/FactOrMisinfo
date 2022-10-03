@@ -16,6 +16,7 @@ After manually compiling 100 articles from websites such as Politifact and Snope
 
 To-do list as of now:
 - Create neural network
+- Switch from Gensim vectorization to BERT vectorization
 - Figure out how to scrape the necessary data from the URL
 - Put together the website
 - Assemble another neural network that accounts for liberal/conservative bias

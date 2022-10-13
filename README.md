@@ -10,12 +10,18 @@ A neural network is a method used in machine learning in which a computer learns
 
 Below, you can view status updates on the project.
 
-September 25th:
+September 25th, 2022:
 
 After manually compiling 100 articles from websites such as Politifact and Snopes, I was able to run it through a neural network from scikit-learn. As of now, the test accuracy of that network ranges from anywhere between 0.6 and 0.8. While the latter is a decent score, it needs to be more consistent for me to consider it usable, so a more complex neural network will be needed. I've also downloaded the fourth installment of the NELA-GT datasets, NELA-GT-2021, a dataset that contains over 1.8 million articles from 367 different sources. With the immense amount of data that comes with this dataset, we'll be able to train a better model than the one I originally created. 
 
+October 5th, 2022
+
+A new model has been created! Using Keras, I've been able to create a new language classifier while still utilizing Gensim vectorization (although the goal is to eventually give the job of vectorization to BERT), and the classifier currently has a consistent accuracy of 80% whilst utilizing 30 epochs, trained on the information from the dataset I've manually created. While this is great, it'd still be preferable to get the accuracy a bit higher, so by using the larger dataset, I'll be able to train the model more accurately. 
+
+At this point, I'll have to create the website relatively soon (hopefully by the end of October?) as to make the model usable by the general populace. All in all, I can say that I'm happy with the progress being made. I'll update this when I either finish a working website or get the model running on the larger dataset.
+
 To-do list as of now:
-- Create neural network
+- Train neural network on larger dataset
 - Switch from Gensim vectorization to BERT vectorization
 - Put together the website
 - Assemble another neural network that accounts for liberal/conservative bias

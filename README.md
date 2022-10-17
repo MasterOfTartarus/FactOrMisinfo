@@ -12,7 +12,7 @@ Below, you can view status updates on the project.
 
 September 25th, 2022:
 
-After manually compiling 100 articles from websites such as Politifact and Snopes, I was able to run it through a neural network from scikit-learn. As of now, the test accuracy of that network ranges from anywhere between 0.6 and 0.8. While the latter is a decent score, it needs to be more consistent for me to consider it usable, so a more complex neural network will be needed. I've also downloaded the fourth installment of the NELA-GT datasets, NELA-GT-2021, a dataset that contains over 1.8 million articles from 367 different sources. With the immense amount of data that comes with this dataset, we'll be able to train a better model than the one I originally created. 
+After manually compiling 100 articles from websites such as Politifact and Snopes, I was able to run it through a neural network from scikit-learn. As of now, the test accuracy of that network ranges from anywhere between 0.6 and 0.8. While the latter is a decent score, it needs to be more consistent for me to consider it usable, so a more complex neural network will be needed.
 
 October 5th, 2022
 
@@ -20,10 +20,15 @@ A new model has been created! Using Keras, I've been able to create a new langua
 
 At this point, I'll have to create the website relatively soon (hopefully by the end of October?) as to make the model usable by the general populace. All in all, I can say that I'm happy with the progress being made. I'll update this when I either finish a working website or get the model running on the larger dataset.
 
+October 13th, 2022
+
+The BERT model has successfully been implemented, replacing the Gensim vectorization used previously. Comparing the two, the Gensim vectorization consistently achieved an accuracy of 80% on the test set. However, when BERT was put in place, the accuracy varied a bit more, with 80% being the low and having a high of 95%. While not 100%, 95% is nothing to sneeze at. In addition, BERT is much faster, cutting down the time it takes to run from about two and a half minutes to around thirty seconds. Using the faster BERT model will make this process much simpler for future testing. 
+
+I've also implemented a piece of code that allows you to write your own statement to test. Unfortunately, this doesn't seem to be too accurate, with it classifying the statement "Barack Obama was born in Africa and is a Muslim terrorist" as true. At this point, the only thing that can really be done to make this model more accurate is to get a larger dataset. Hopefully I'll be able to get a website up and running soon, so that this model can actually be used by the public.
+
 To-do list as of now:
-- Train neural network on larger dataset
-- Switch from Gensim vectorization to BERT vectorization
 - Put together the website
+- Train neural network on larger dataset
 - Assemble another neural network that accounts for liberal/conservative bias
 - Figure out how to scrape the necessary data from the URL
 

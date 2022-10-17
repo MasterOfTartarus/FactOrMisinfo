@@ -9,41 +9,50 @@ from sklearn.neural_network import MLPClassifier
 import tensorflow as tf
 from keras import layers
 import numpy as np
+import transformers
+import torch
 
-# Load the vectorization model
-dataset = api.load("text8")
-data = [d for d in dataset]
-
-
-def tagged_document(list_of_list_of_words):
-    for i, list_of_words in enumerate(list_of_list_of_words):
-        yield gensim.models.doc2vec.TaggedDocument(list_of_words, [i])
-
-
-data_for_training = list(tagged_document(data))
-
-model = gensim.models.doc2vec.Doc2Vec(vector_size=40, min_count=2, epochs=30)
-model.build_vocab(data_for_training)
-model.train(data_for_training, total_examples=model.corpus_count, epochs=model.epochs)
+# Load pre-trained model
+model_, tokenizer_, pretrained_weights = (transformers.BertModel, transformers.BertTokenizer, 'bert-base-cased')
+tokenizer = tokenizer_.from_pretrained(pretrained_weights)
+model = model_.from_pretrained(pretrained_weights)
 
 # Read the CSV for article information and text
 articles = pd.read_csv("Data for Misinformation - Sheet1.csv")
-article_text = articles["Article Text"]
 
+# Tokenize text
+tokenized = articles['Article Title'].apply((lambda x: tokenizer.encode(x[-512:], add_special_tokens=True)))
+
+# Padding so equal length
+max_len = 0
+for i in tokenized.values:
+    if len(i) > max_len:
+        max_len = len(i)
+padded = np.array([i + [0] * (max_len - len(i)) for i in tokenized.values])
+attention_mask = np.where(padded != 0, 1, 0)
+
+# Train model
+input_ids = torch.tensor(np.array(padded, dtype=np.float64)).to(torch.int64)
+attention_mask = torch.tensor(np.array(attention_mask, dtype=np.float64)).to(torch.int64)
+with torch.no_grad():
+    last_hidden_states = model(input_ids, attention_mask=attention_mask)
+
+# Output features
+features = np.array(last_hidden_states[0][:, 0, :])
 
 # Reformat the text to get rid of unnecessary characters
-def fix_text(x):
-    list_corpus = x.strip(".").strip(",").strip("[").strip("]").strip(";").strip(":").split(" ")
-    return model.infer_vector(list_corpus)
+# def fix_text(x):
+#     list_corpus = x.strip(".").strip(",").strip("[").strip("]").strip(";").strip(":").split(" ")
+#     return model.infer_vector(list_corpus)
 
 
 # Create a list of vectors with their text fixed
-vector = []
-for art in range(article_text.shape[0]):
-    vector.append(fix_text(article_text[art]))
+# vector = []
+# for art in range(article_text.shape[0]):
+#     vector.append(fix_text(article_text[art]))
 
 
-# Create new file with vectors
+# Create new file with vectors (NOT NEEDED ANYMORE)
 # def g(x):
 #     dict_ = {True: 1, False: 0}
 #     return dict_[x]
@@ -56,7 +65,7 @@ for art in range(article_text.shape[0]):
 
 # Read new file and create variables based on the inputs and outputs of the neural network
 articles = pd.read_csv("Model Input.csv")
-X = vector
+X = features
 y = articles['Veracity Int']
 
 
@@ -69,12 +78,8 @@ X_test = np.array(X_test)
 y_train = np.array(y_train)
 y_test = np.array(y_test)
 
-# Put the data into tensorflow datasets
-train_dataset = tf.data.Dataset.from_tensor_slices((X_train, y_train))
-test_dataset = tf.data.Dataset.from_tensor_slices((X_test, y_test))
 
-
-# Create the sklearn classifier and train it
+# Create the sklearn classifier and train it (OBSOLETE)
 # clf = MLPClassifier(solver='lbfgs', alpha=1e-5, hidden_layer_sizes=(5, 2), random_state=1)
 # clf.fit(X_train, y_train)
 
@@ -85,60 +90,38 @@ embedding_dim = 128
 sequence_length = 500
 
 
-# Create a Keras neural network
-# inputs = keras.Input(shape=(None,), dtype="int64")
-#
-# z = layers.Embedding(max_features, embedding_dim)(inputs)
-# z = layers.Dropout(0.5)(z)
-#
-# z = layers.Conv1D(128, 7, padding="valid", activation="relu", strides=3)(z)
-# z = layers.Conv1D(128, 7, padding="valid", activation="relu", strides=3)(z)
-# z = layers.GlobalMaxPooling1D()(z)
-#
-# # Vanilla hidden layer
-# z = layers.Dense(128, activation="relu")(z)
-# z = layers.Dropout(0.5)(z)
-#
-# predictions = layers.Dense(1, activation="sigmoid", name="predictions")(z)
-
 
 # Create the model
-# model = keras.Model(inputs, predictions)
-
-model = tf.keras.Sequential([
-    tf.keras.layers.Flatten(input_shape=(None,)),
-    tf.keras.layers.Dense(128, activation='relu'),
-    tf.keras.layers.Dense(10)
-])
+misinfo = keras.models.Sequential()
+misinfo.add(keras.layers.Flatten(input_shape=[768,])) # X_train has 40 features
+misinfo.add(keras.layers.Dense(300, activation='relu'))
+misinfo.add(keras.layers.Dense(100, activation='relu'))
+misinfo.add(keras.layers.Dense(1, activation='sigmoid'))
 
 # Compile the model
-# model.compile(loss="binary_crossentropy", optimizer="adam", metrics=["accuracy"])
-
-model.compile(optimizer=tf.keras.optimizers.RMSprop(),
-              loss=tf.keras.losses.SparseCategoricalCrossentropy(from_logits=True),
-              metrics=['sparse_categorical_accuracy'])
+misinfo.compile(loss="binary_crossentropy", optimizer="adam", metrics=["accuracy"])
 
 # Train the model
-epochs = 3
+epochs = 30
 
-# print(f"{X_train=}")
-# print(f"{y_train=}")
-# print(f"{X_test=}")
-# print(f"{y_test=}")
-#
-# print()
-# print()
-#
-# print(len(X_train))
-# print(len(y_train))
-# print(len(X_test))
-# print(len(y_test))
-#
-# print(X_train.shape)
-# print(y_train.shape)
-
-model.fit(train_dataset, epochs=epochs)
+misinfo.fit(X_train, y_train, epochs=epochs)
 
 
 # Test the model's accuracy
-model.evaluate(test_dataset)
+misinfo.evaluate(X_test, y_test)
+
+# Input your own statement
+
+_tokenizer_ = tokenizer.encode("Donald Trump is BEST president ever and Barack Obama is a muslim terrorist",
+                               add_special_tokens=True)
+_padded = np.array(_tokenizer_ + [0] * (max_len - len(_tokenizer_)))
+_attention_mask = np.where(_padded != 0, 1, 0)
+
+# Train model
+_input_ids = torch.tensor(np.array(_padded, dtype=np.float64)).to(torch.int64).unsqueeze(0)
+_attention_mask = torch.tensor(np.array(_attention_mask, dtype=np.float64)).to(torch.int64).unsqueeze(0)
+with torch.no_grad():
+    last_hidden_states_ = model(_input_ids, attention_mask=_attention_mask)
+statement = np.array(last_hidden_states_[0][:, 0, :])
+
+print(misinfo.predict(statement))

@@ -1,5 +1,11 @@
 # FactOrMisinfo
 
+## Background
+
+I'm someone who's always been intrigued by politics and computer science, but the two paths never really felt "mergeable" to me. Within my interest in politics, I wanted to focus on reducing partisan polarization within our communities after watching the insurrection on January 6th in real time. In my work, I created a committee at my high school dedicated to facilitating conversations between people of opposing viewpoints, and covered topics like reading bills yourself instead of trusting what the media tells you, and how different news outlets will give you the "facts" but purposefully leave out or include information so that you aren't really arriving at your own conclusion. Through this committee, I started realizing that a lot of the reason why we're moving towards the extremes is due to rampant misinformation spreading throughout communities. I've wanted to figure out some way to reduce people from being fooled, so I decided to take what I was learning in my machine learning course and apply it here. This lead to the creation of FactOrMisinfo (working title), which is dedicated to stopping United States politics be defined by bad actors.
+
+## Mission
+
 The goal of this project is to ultimately create a website in which you can enter a URL of an article and be told whether the article is misinformation as well as a possible liberal or conservative bias. 
 
 To accomplish this, we need to use a neural network that can use the text of the articles in tandem with the article tile and outlet that published it to determine whether an article should be considered true or false. However, a neural network doesn't just "read" text, but rather will need a vector to actually understand the article. By using vectorization with Gensim, we can turn each article into a vector, which can be passed into the neural network. 
@@ -31,10 +37,6 @@ I've also implemented a piece of code that allows you to write your own statemen
 - Train neural network on larger dataset
 - Assemble another neural network that accounts for liberal/conservative bias
 - Figure out how to scrape the necessary data from the URL
-
-## Background
-
-I'm someone who's always been intrigued by politics and computer science, but the two paths never really felt "mergeable" to me. Within my interest in politics, I wanted to focus on reducing partisan polarization within our communities after watching the insurrection on January 6th in real time. In my work, I created a committee at my high school dedicated to facilitating conversations between people of opposing viewpoints, and covered topics like reading bills yourself instead of trusting what the media tells you, and how different news outlets will give you the "facts" but purposefully leave out or include information so that you aren't really arriving at your own conclusion. Through this committee, I started realizing that a lot of the reason why we're moving towards the extremes is due to rampant misinformation spreading throughout communities. I've wanted to figure out some way to reduce people from being fooled, so I decided to take what I was learning in my machine learning course and apply it here. This lead to the creation of FactOrMisinfo (working title), which is dedicated to stopping United States politics be defined by bad actors.
 
 
 Credit to Maurício Gruppi, Benjamin D. Horne, and Sibel Adali for the original code and the NELA-GT-2021 dataset.

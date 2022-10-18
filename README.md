@@ -32,11 +32,14 @@ The BERT model has successfully been implemented, replacing the Gensim vectoriza
 
 I've also implemented a piece of code that allows you to write your own statement to test. Unfortunately, this doesn't seem to be too accurate, with it classifying the statement "Barack Obama was born in Africa and is a Muslim terrorist" as true. At this point, the only thing that can really be done to make this model more accurate is to get a larger dataset. Hopefully I'll be able to get a website up and running soon, so that this model can actually be used by the public.
 
+### October 18th, 2022
+I've finally got some of the scraping to work now! Using BeautifulSoup, I've been able to successfully scrape articles from the Associated Press, CNN, and FOX News and run them through the model! However, this has also shown some of the issues with the model again. Technically, all these sources should be "true", just with their own bias on things, which is what the next neural network would account for. However, the model is a bit iffy with all of these. While it was very confident that the CNN article was true, it assumed the FOX News article to be false. For the AP, it generally assumed articles to be true, but would sometimes classify it with false, even though the AP should be the least biased of the three. There are two ways I see to fix this: one, either alter the scraping to see if it's picking up something it shouldn't, or two, do what I previously suggested and just get a larger dataset. From what I've seen, I think the latter would fix the most things possible.
+
 ## To-do list as of now:
 - Put together the website
 - Train neural network on larger dataset
 - Assemble another neural network that accounts for liberal/conservative bias
-- Figure out how to scrape the necessary data from the URL
+- Create scraping solutions for each website until a better option can be found
 
 
 Credit to Maurício Gruppi, Benjamin D. Horne, and Sibel Adali for the original code and the NELA-GT-2021 dataset.

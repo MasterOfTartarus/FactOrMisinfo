@@ -42,6 +42,4 @@ I've finally got some of the scraping to work now! Using BeautifulSoup, I've bee
 - Create scraping solutions for each website until a better option can be found
 
 
-Credit to Maurício Gruppi, Benjamin D. Horne, and Sibel Adali for the original code and the NELA-GT-2021 dataset.
-
 [NOTE TO SELF: CITE THE ABOVE PROPERLY]

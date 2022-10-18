@@ -1,0 +1,12 @@
+from bs4 import BeautifulSoup
+import requests
+
+# Choose the URL that you want to parse
+url = "https://apnews.com/article/why-some-people-get-more-mosquito-bites-a221709809aadd0b27a47c4a32c8921b?utm_source=homepage&utm_medium=TopNews&utm_campaign=position_06"
+
+# Get the HTML doc and then clean it up
+page = requests.get(url)
+soup = BeautifulSoup(page.text, 'html.parser')
+
+# Find all article text
+article_text = soup.find("div", class_ = "Article").get_text()

@@ -35,6 +35,9 @@ I've also implemented a piece of code that allows you to write your own statemen
 ### October 18th, 2022
 I've finally got some of the scraping to work now! Using BeautifulSoup, I've been able to successfully scrape articles from the Associated Press, CNN, and FOX News and run them through the model! However, this has also shown some of the issues with the model again. Technically, all these sources should be "true", just with their own bias on things, which is what the next neural network would account for. However, the model is a bit iffy with all of these. While it was very confident that the CNN article was true, it assumed the FOX News article to be false. For the AP, it generally assumed articles to be true, but would sometimes classify it with false, even though the AP should be the least biased of the three. There are two ways I see to fix this: one, either alter the scraping to see if it's picking up something it shouldn't, or two, do what I previously suggested and just get a larger dataset. From what I've seen, I think the latter would fix the most things possible.
 
+### October 20th, 2022
+The model can now scrape from a variety of websites, from MSNBC to InfoWars. On the bad side, this has exposed the model's weakness more than ever. The model rarely gets these websites correct, although it had a 95% accuracy on the training data. I think the only thing that can be done now is to just get more articles and run the larger dataset through the model.
+
 ## To-do list as of now:
 - Put together the website
 - Train neural network on larger dataset

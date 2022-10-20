@@ -44,5 +44,16 @@ The model can now scrape from a variety of websites, from MSNBC to InfoWars. On 
 - Assemble another neural network that accounts for liberal/conservative bias
 - Create scraping solutions for each website until a better option can be found
 
+## Credits
+### Libraries Used
+- scikit-learn
+- pandas
+- keras
+- numpy
+- transformers
+- PyTorch
+- BeautifulSoup4
+- requests
 
-[NOTE TO SELF: CITE THE ABOVE PROPERLY]
+### Special Thanks
+Special thanks to the people who helped me with various parts of the project. Thank you to Alex Calderwell for getting me started on the project and getting me to a place where I could do projects like this 1000 times over. Thank you to Maurício Gruppi who kindly responded to my inquiry on his project which had a similar goal and how we went about completing it.

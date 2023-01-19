@@ -41,6 +41,8 @@ The model can now scrape from a variety of websites, from MSNBC to InfoWars. On 
 ### January 18th, 2023
 It's been a while since the last update, mostly since due to work on the website. Unfortunately, I've recently learned that I have no clue how to do this. As of now, I have a working frontend, but I can't figure out how to make it call my Python program. Once I figure that out, I'll update this. Hopefully it'll be before the end of this month.
 
+As a side note, GitHub doesn't allow you to upload more than 100 files at a time, which my website so far is, so I'll figure that out later.
+
 ## To-do list as of now:
 - Put together the website
 - Train neural network on larger dataset
